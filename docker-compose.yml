@@ -1,0 +1,97 @@
+name: resolveai
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-resolveai}
+      POSTGRES_USER: ${POSTGRES_USER:-resolveai}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-resolveai_local}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+
+  migrate:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment: &backend_environment
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-resolveai}:${POSTGRES_PASSWORD:-resolveai_local}@postgres:5432/${POSTGRES_DB:-resolveai}
+      APP_ENV: ${APP_ENV:-development}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      DEMO_AUTH_ENABLED: ${DEMO_AUTH_ENABLED:-true}
+      SESSION_SIGNING_KEY: ${SESSION_SIGNING_KEY:-resolveai-local-demo-key-change-before-hosting}
+      SESSION_TTL_SECONDS: ${SESSION_TTL_SECONDS:-28800}
+      CORS_ORIGINS: '${CORS_ORIGINS:-["http://localhost:3000"]}'
+      LLM_PROVIDER: ${LLM_PROVIDER:-demo}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4.1-mini}
+      LLM_TIMEOUT_SECONDS: ${LLM_TIMEOUT_SECONDS:-20}
+      EMBEDDING_PROVIDER: ${EMBEDDING_PROVIDER:-local_hash}
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-text-embedding-3-small}
+      EMBEDDING_DIMENSIONS: ${EMBEDDING_DIMENSIONS:-1536}
+      EMBEDDING_TIMEOUT_SECONDS: ${EMBEDDING_TIMEOUT_SECONDS:-20}
+      RAG_TOP_K: ${RAG_TOP_K:-8}
+      RAG_MIN_SCORE: ${RAG_MIN_SCORE:-0.1}
+      AGENT_WORKER_ENABLED: ${AGENT_WORKER_ENABLED:-true}
+      AGENT_POLL_SECONDS: ${AGENT_POLL_SECONDS:-1}
+      AGENT_LEASE_SECONDS: ${AGENT_LEASE_SECONDS:-180}
+      AGENT_MAX_ATTEMPTS: ${AGENT_MAX_ATTEMPTS:-3}
+      CHECKPOINT_SCHEMA: ${CHECKPOINT_SCHEMA:-resolveai_checkpoints}
+    command: ["python", "-m", "alembic", "upgrade", "head"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  seed:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment: *backend_environment
+    command: ["python", "-m", "app.db.seed"]
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment: *backend_environment
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      seed:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/ready', timeout=5)"]
+      interval: 10s
+      timeout: 6s
+      retries: 5
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    environment:
+      BACKEND_URL: http://backend:8000
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/health', {signal: AbortSignal.timeout(5000)}).then(response => { if (!response.ok) process.exit(1); }).catch(() => process.exit(1))"]
+      interval: 10s
+      timeout: 6s
+      retries: 5
+      start_period: 20s
+
+volumes:
+  postgres_data:

@@ -1,0 +1,7 @@
+# Resolved with Python 3.12. Update deliberately and rerun tests.
+-r requirements.lock
+iniconfig==2.3.0
+pluggy==1.6.0
+pygments==2.21.0
+pytest==9.1.1
+ruff==0.16.6

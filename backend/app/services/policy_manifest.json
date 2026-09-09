@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "documents": {
+    "repository-access-policy": {
+      "title": "Repository Access Policy",
+      "version": "1.0",
+      "content_hash": "2650453c377325c3341aea2a9798939c8ff354ceb62a653510aa7d642d9f6139",
+      "sections": {
+        "§1. Scope and identity": "da1666d75a6b5a307f0cad4ee0308e5236956179faf172cc3abcb611a8a0ba80",
+        "§2. Read access within a department": "3c6502072a0f36cd95d80a4c7db0f75e3a58944d1b337e74867d505f33eadc5f",
+        "§3. Write access": "d9839c7fb56c223b93c5d8865a42f1c32342bed609a9f012a5d6e13ed0ffceea",
+        "§4. Cross-department access": "845ffa30ce2ad8fe83adca2e2ed25227843789294034acec1f991340e4f22cb3",
+        "§5. Admin access": "19e7fa4b29be2525c2ee5cf66fc8fdab5ed77e969d8d202d2c89d141b6c2d21e",
+        "§6. Completion": "706c6e4421ba0dbb285a33e35802c558eded2797cd960cc9ebfde94faf3584c6"
+      }
+    },
+    "least-privilege-policy": {
+      "title": "Least Privilege Policy",
+      "version": "1.0",
+      "content_hash": "650fa624ff76fbf1369dacda9b7436507f5d5a16a1cad476125a27568add180b",
+      "sections": {
+        "§1. Permission ordering": "566fdb23f62662efb06e6c4dd8fa6462c1b356b449354332495e615f7f42bd58",
+        "§2. Existing permissions": "2820a72cfbd1f35071c21ef8280de139188c6bf6cd2d6bc5b1e05791692b28c3",
+        "§3. Bound changes and idempotency": "e122aca6ca27edb77e7360d935d8d8e3f24d7e7d3d72447492b0069ba5900062",
+        "§4. Decision evidence": "64bd03fd669fc0bfc5e732260aabcfa5b88979ce36162f780f6f5de54ba1db5f"
+      }
+    },
+    "privileged-access-policy": {
+      "title": "Privileged Access Policy",
+      "version": "1.0",
+      "content_hash": "1ddd1a463b602597d39035c4391d8041ef40c29a87da1982cbac383932142303",
+      "sections": {
+        "§1. Admin requests": "792d6eb3d6bc0a2f429f95e0792b5f302112cf7b66783b4cfc11f0171182633a",
+        "§2. Review ownership": "fba31ebddfda93fa5f1af2b6a5225055118ca27aa6725893494d8ea2c225a528",
+        "§3. Emergency requests": "d99567d49a16aa6dcd8a62b4b501081d8a3c65d1a53de10e90c1b7c529878613",
+        "§4. Existing privilege": "682ace1611ae246837ba78962cb0a073ed9ebb3ea62430681ba31c482409c680"
+      }
+    }
+  }
+}
