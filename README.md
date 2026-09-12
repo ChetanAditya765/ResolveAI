@@ -8,8 +8,8 @@ human approvals, typed tool execution, independent verification, and automated e
 
 **The model proposes. Deterministic controls authorize. Observed state determines success.**
 
-[Project case study](https://chetanaditya.netlify.app/projects/resolveai/) Â·
-[Project overview PDF](ResolveAI-Project-Overview.pdf) Â· [Local demo](docs/demo.md)
+[Project case study](https://chetanaditya.netlify.app/projects/resolveai/) |
+[Project overview PDF](ResolveAI-Project-Overview.pdf) | [Local demo](docs/demo.md)
 
 ![ResolveAI workspace with persisted access requests](docs/screenshots/dashboard.png)
 
@@ -26,9 +26,12 @@ has not been validated. See [limitations](#known-limitations).
 
 ## Demo
 
-**Demo video coming soon.** The [case-study demo section](https://chetanaditya.netlify.app/projects/resolveai/#demo)
-will host the recording. Until then, use the [five-minute walkthrough](docs/demo.md) and screenshots.
-The case study uses one configurable video URL and does not autoplay.
+Watch the complete ResolveAI workflow, including policy retrieval, human approval,
+verified simulated permission execution, automated evaluation, and safe escalation.
+
+[Watch the ResolveAI Demo](./ResolveAI-Polished-Demo.mp4)
+
+For setup and a step-by-step tour, see the [demo walkthrough](docs/demo.md).
 
 ## Example workflow
 
@@ -48,7 +51,7 @@ Rejection never grants access. Admin requests escalate for security review.
 
 ![ResolveAI architecture and authorization boundary](assets/architecture/resolveai-architecture.svg)
 
-Next.js â†’ FastAPI â†’ domain services â†’ LangGraph, with policy retrieval, persistent approvals,
+Next.js -> FastAPI -> domain services -> LangGraph, with policy retrieval, persistent approvals,
 and typed tools backed by PostgreSQL and pgvector. Retrieved text is evidence, not executable
 authorization. The permission service rechecks reviewed policy fingerprints and current facts.
 
@@ -68,7 +71,7 @@ authorization. The permission service rechecks reviewed policy fingerprints and 
 
 ## Evaluation
 
-**490 backend tests passed · 12 Chromium tests passed · 37/37 deterministic scenarios passed.**
+**490 backend tests passed | 12 Chromium tests passed | 37/37 deterministic scenarios passed.**
 
 Fresh local rerun: 9 September 2026, including PostgreSQL/pgvector integration. HTTP restart
 recovery and frontend checks passed. Docker Compose configuration passed; Docker execution
@@ -178,15 +181,13 @@ streaming, and production authentication should follow demonstrated need.
 
 ## Documentation
 
-[Public overview PDF](ResolveAI-Project-Overview.pdf) Â· [Architecture](docs/architecture.md) Â·
-[Evaluation](docs/evaluation.md) Â· [Demo](docs/demo.md) Â· [Deployment](docs/deployment.md) Â·
-[API contracts](docs/api-contracts.md) Â· [Database schema](docs/database-schema.md) Â·
-[Current validation](docs/release-validation.md) Â· [Changelog](CHANGELOG.md)
+[Public overview PDF](ResolveAI-Project-Overview.pdf) | [Architecture](docs/architecture.md) |
+[Evaluation](docs/evaluation.md) | [Demo](docs/demo.md) | [Deployment](docs/deployment.md) |
+[API contracts](docs/api-contracts.md) | [Database schema](docs/database-schema.md) |
+[Current validation](docs/release-validation.md) | [Changelog](CHANGELOG.md)
 
 ## Author
 
 Designed and developed by **Chetan Aditya**.
 
-[Portfolio](https://chetanaditya.netlify.app) Â· [GitHub](https://github.com/ChetanAditya765) Â·
-[LinkedIn](https://www.linkedin.com/in/chetan-aditya-02365426a) Â·
-[Resume](https://chetanaditya.netlify.app/resume.pdf)
+[Portfolio](https://chetanaditya.netlify.app/) | [GitHub](https://github.com/ChetanAditya765) | [LinkedIn](https://www.linkedin.com/in/chetan-aditya-02365426a) | [Resume](https://chetanaditya.netlify.app/resume.pdf)
