@@ -29,7 +29,9 @@ has not been validated. See [limitations](#known-limitations).
 Watch the complete ResolveAI workflow, including policy retrieval, human approval,
 verified simulated permission execution, automated evaluation, and safe escalation.
 
-[Watch the ResolveAI Demo](./ResolveAI-Polished-Demo.mp4)
+[Watch the ResolveAI Demo](https://chetanaditya.netlify.app/projects/resolveai/#demo)
+
+[Download the recording](./ResolveAI-Polished-Demo.mp4)
 
 For setup and a step-by-step tour, see the [demo walkthrough](docs/demo.md).
 
